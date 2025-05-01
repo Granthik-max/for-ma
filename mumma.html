@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>HEY MUMMA HOW ARE YOU?</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background-color: #fff0f5;
+      overflow: hidden;
+    }
+
+    h1 {
+      color: #d2691e;
+      text-align: center;
+      margin-top: 40px;
+    }
+
+    .button-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      gap: 20px;
+      margin-top: 60px;
+      position: relative;
+    }
+
+    button {
+      padding: 15px 25px;
+      font-size: 1.1em;
+      cursor: pointer;
+      border: none;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      z-index: 2;
+    }
+
+    #goodBtn {
+      background-color: #98fb98;
+    }
+
+    #notWellBtn {
+      background-color: #ff7f7f;
+    }
+
+    #comfortScreen {
+      display: none;
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: #fff8dc;
+      z-index: 10;
+      text-align: center;
+      padding-top: 100px;
+      animation: fadeIn 1s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    #comfortScreen .emoji {
+      font-size: 5em;
+      animation: float 2.5s ease-in-out infinite;
+    }
+
+    @keyframes float {
+      0% { transform: translateY(0); }
+      50% { transform: translateY(-15px); }
+      100% { transform: translateY(0); }
+    }
+
+    #comfortScreen p {
+      font-size: 1.5em;
+      color: #b22222;
+      padding: 20px;
+    }
+
+    @media (max-width: 600px) {
+      .button-container {
+        flex-direction: column;
+        gap: 15px;
+      }
+
+      button {
+        font-size: 1em;
+        padding: 12px 20px;
+      }
+
+      #comfortScreen p {
+        font-size: 1.2em;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <h1>HEY MUMMA HOW ARE YOU?</h1>
+
+  <div class="button-container" id="buttonContainer">
+    <button id="goodBtn">I am good</button>
+    <button id="notWellBtn">I am not feeling well</button>
+  </div>
+
+  <div id="comfortScreen">
+    <div class="emoji">🐻🍫</div>
+    <p>The teddy gives you chocolate and a big warm hug!<br>Everything will be okay, Mamma. ❤️</p>
+  </div>
+
+  <script>
+    const goodBtn = document.getElementById('goodBtn');
+    const notWellBtn = document.getElementById('notWellBtn');
+    const comfortScreen = document.getElementById('comfortScreen');
+    const buttonContainer = document.getElementById('buttonContainer');
+
+    let clickCount = 0;
+    let hasStartedMoving = false;
+
+    function moveButton() {
+      const btnWidth = 120;
+      const btnHeight = 60;
+      const x = Math.floor(Math.random() * (window.innerWidth - btnWidth));
+      const y = Math.floor(Math.random() * (window.innerHeight - btnHeight - 100)) + 50;
+      goodBtn.style.position = 'absolute';
+      goodBtn.style.left = `${x}px`;
+      goodBtn.style.top = `${y}px`;
+    }
+
+    goodBtn.addEventListener('click', () => {
+      clickCount++;
+
+      if (!hasStartedMoving) {
+        hasStartedMoving = true;
+        buttonContainer.style.position = 'static'; // to allow free movement
+      }
+
+      if (clickCount >= 4) {
+        goodBtn.style.display = 'none';
+      } else {
+        moveButton();
+      }
+    });
+
+    notWellBtn.addEventListener('click', () => {
+      comfortScreen.style.display = 'block';
+    });
+  </script>
+</body>
+</html>
